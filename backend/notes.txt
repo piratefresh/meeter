@@ -1,0 +1,1 @@
+graphql get-schema -p prisma --dotenv variables.env

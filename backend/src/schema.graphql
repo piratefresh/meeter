@@ -1,0 +1,24 @@
+# import * from './generated/prisma.graphql'
+
+type Mutation {
+  createMeeting(
+    title: String
+    description: String
+    image: String
+    largeImage: String
+    startTime: Int
+    endTime: Int
+  ): Meeting!
+  updateMeeting(
+    id: ID!
+    title: String
+    description: String
+    startTime: Int
+    endTime: Int
+  ): Meeting!
+}
+
+type Query {
+  meetings: [Meeting]!
+  meeting(where: MeetingWhereUniqueInput!): Meeting
+}
