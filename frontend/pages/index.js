@@ -2,7 +2,7 @@ import Meetings from "../components/Meetings";
 
 const Home = props => (
   <div>
-    <Meetings />
+    <Meetings page={parseFloat(props.query.page) || 1} />
   </div>
 );
 

@@ -1,1 +1,3 @@
-import Home from "./index";
+import Meetings from "./index";
+
+export default Meetings;

@@ -3,10 +3,12 @@ import { Query } from "react-apollo";
 import gql from "graphql-tag";
 import styled from "styled-components";
 import Meeting from "./Meeting";
+import Pagination from "./Pagination";
+import { perPage } from "../config";
 
 const ALL_MEETINGS_QUERY = gql`
-  query ALL_MEETINGS_QUERY {
-    meetings {
+  query ALL_MEETINGS_QUERY($skip: Int = 0, $first: Int = ${perPage}) {
+    meetings(first: $first, skip: $skip, orderBy: createdAt_DESC) {
       id
       title
       description
@@ -33,8 +35,14 @@ class Meetings extends Component {
   render() {
     return (
       <Center>
+        <Pagination page={this.props.page} />
         <p>Meetings!</p>
-        <Query query={ALL_MEETINGS_QUERY}>
+        <Query
+          query={ALL_MEETINGS_QUERY}
+          variables={{
+            skip: this.props.page * perPage - perPage
+          }}
+        >
           {({ data, error, loading }) => {
             if (loading) return <p>Loading ...</p>;
             if (error) return <p>{error.message}</p>;
@@ -49,6 +57,7 @@ class Meetings extends Component {
             );
           }}
         </Query>
+        <Pagination page={this.props.page} />
       </Center>
     );
   }

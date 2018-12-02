@@ -4,6 +4,7 @@ import Link from "next/link";
 import Title from "./styles/Title";
 import Meetingstyles from "./styles/ItemStyles";
 import PriceTag from "./styles/PriceTag";
+import DeleteMeeting from "./DeleteMeeting";
 
 class Meeting extends Component {
   static propTypes = {
@@ -38,7 +39,7 @@ class Meeting extends Component {
             <a>Edit</a>
           </Link>
           <button>Read More</button>
-          <button>Delete</button>
+          <DeleteMeeting id={meeting.id}>Delete Meeting</DeleteMeeting>
         </div>
       </Meetingstyles>
     );
