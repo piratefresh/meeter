@@ -1,6 +1,6 @@
-endpoint: ${env:PRISMA_ENDPOINT}
-datamodel: datamodel.prisma
-# secret: ${env:PRISMA_SECRET}
+endpoint: https://us1.prisma.sh/magnus-nilsen/meeterbackend/dev
+datamodel: datamodel.graphql
+# Deploy hook
 hooks:
   post-deploy:
-    - graphql get-schema -p prisma --dotenv variables.env
+    - graphql get-schema --project database

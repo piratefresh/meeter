@@ -1,4 +1,7 @@
 # import * from './generated/prisma.graphql'
+type SuccessMessage {
+  message: String
+}
 
 type Mutation {
   createMeeting(
@@ -16,9 +19,55 @@ type Mutation {
     startTime: Int
     endTime: Int
   ): Meeting!
+  deleteMeeting(id: ID!): Meeting
+  signup(email: String!, password: String!, name: String!): User!
+  signin(email: String!, password: String!): User!
+  signout: SuccessMessage
+  requestReset(email: String!): SuccessMessage
+  resetPassword(
+    resetToken: String!
+    password: String!
+    confirmPassword: String!
+  ): User!
+  confirmUser(confirmToken: String!): SuccessMessage
+  updateUser(
+    email: String!
+    bio: String
+    avatar: String
+    games: [String]
+  ): User!
+  createGame(
+    email: String!
+    title: String
+    description: String
+    image: String
+  ): Game!
 }
 
 type Query {
-  meetings: [Meeting]!
+  meetings(
+    where: MeetingWhereInput
+    orderBy: MeetingOrderByInput
+    skip: Int
+    first: Int
+  ): [Meeting]!
   meeting(where: MeetingWhereUniqueInput!): Meeting
+  meetingsConnection(where: MeetingWhereInput): MeetingConnection!
+  me: User
+}
+
+type User {
+  id: ID!
+  name: String!
+  email: String!
+  bio: String!
+  avatar: String!
+  games: [Game!]
+  permissions: [Permission!]!
+}
+
+type Game {
+  title: String!
+  description: String!
+  image: String
 }

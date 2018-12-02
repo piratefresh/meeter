@@ -1,0 +1,46 @@
+enum Permission {
+  ADMIN
+  USER
+  ITEMCREATE
+  ITEMUPDATE
+  ITEMDELETE
+  PERMISSIONUPDATE
+}
+
+type Game {
+  title: String!
+  description: String!
+  image: String
+  user: User!
+}
+
+type User {
+  id: ID! @unique
+  name: String!
+  email: String! @unique
+  password: String!
+  bio: String
+  avatar: String
+  games: [Game]
+  resetToken: String
+  resetTokenExpiry: String
+  permissions: [Permission]
+  confirmed: Boolean @default(value: "false")
+  confirmToken: String
+}
+
+type Meeting {
+  id: ID! @unique
+  title: String!
+  description: String!
+  image: String
+  largeImage: String
+  startTime: Int!
+  endTime: Int!
+  user: User!
+}
+
+type Item {
+  id: ID! @unique
+  title: String!
+}
