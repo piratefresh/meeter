@@ -230,9 +230,9 @@ const Mutations = {
     return updatedUser;
   },
   async createGame(parent, args, ctx, info) {
-    const user = await ctx.db.query.user({ where: { email: args.email } });
+    const user = await ctx.db.query.user({ where: { id: args.id } });
     if (!user) {
-      throw new Error(`No such user found for email ${args.email}`);
+      throw new Error(`No such user found}`);
     }
     console.log(user);
     const game = await ctx.db.mutation.createGame(

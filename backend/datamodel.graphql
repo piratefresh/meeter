@@ -7,13 +7,6 @@ enum Permission {
   PERMISSIONUPDATE
 }
 
-type Game {
-  title: String!
-  description: String!
-  image: String
-  user: User!
-}
-
 type User {
   id: ID! @unique
   name: String!
@@ -21,23 +14,31 @@ type User {
   password: String!
   bio: String
   avatar: String
-  games: [Game]
+  meetings: [Meeting!]!
   resetToken: String
   resetTokenExpiry: String
   permissions: [Permission]
   confirmed: Boolean @default(value: "false")
   confirmToken: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 type Meeting {
   id: ID! @unique
   title: String!
   description: String!
+  category: String!
   image: String
   largeImage: String
-  startTime: Int!
-  endTime: Int!
+  startTime: String!
+  endTime: String!
   user: User!
+  address: String!
+  lat: Float!
+  lng: Float!
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 type Item {

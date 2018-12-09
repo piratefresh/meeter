@@ -18,8 +18,14 @@ const Query = {
       info
     );
   }
-  /*   async meetings(parent, args, ctx, info) {
-    const meetings = await ctx.db.query.meetings();
+  /*   async meetingsSpecific(parent, args, ctx, info) {
+    if (!args) {
+      const meetings = await ctx.db.query.meetings();
+      return meetings;
+    }
+    const meetings = await ctx.db.query.meetings({
+      where: { category: args.category }
+    });
     return meetings;
   } */
 };
