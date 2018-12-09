@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 const Item = styled.div`
   background: white;
@@ -7,6 +7,7 @@ const Item = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
+  height: 600px;
   img {
     width: 100%;
     height: 400px;

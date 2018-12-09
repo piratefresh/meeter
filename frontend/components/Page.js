@@ -10,7 +10,7 @@ const theme = {
   grey: "#3A3A3A",
   lightGrey: "#E1E1E1",
   offWhite: "#EDEDED",
-  maxWidth: "1000px",
+  maxWidth: "1200px",
   bs: "0 12px 24px 0 rgba(0,0,0, 0.09)", // Box shadow
   breakdownPoint: "1300px"
 };
@@ -61,7 +61,7 @@ class Page extends Component {
         <StyledPage>
           <Meta />
           <Header />
-          <Inner>{this.props.children}</Inner>
+          <Inner className={this.props.className}>{this.props.children}</Inner>
         </StyledPage>
       </ThemeProvider>
     );
@@ -69,3 +69,5 @@ class Page extends Component {
 }
 
 export default Page;
+
+export { Inner };

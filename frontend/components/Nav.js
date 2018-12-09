@@ -13,11 +13,11 @@ const Nav = () => (
         {me && (
           <>
             {/* React fragment // ghost element */}
-            <Link href="/meetings">
-              <a>My Network</a>
+            <Link href="/events">
+              <a>Explore Events</a>
             </Link>
             <Link href="/createevent">
-              <a>Jobs</a>
+              <a>Create Event</a>
             </Link>
             <Link href="/createevent">
               <a>Messaging</a>
