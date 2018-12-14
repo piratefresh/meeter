@@ -13,7 +13,7 @@ class Meeting extends Component {
   render() {
     const { meeting } = this.props;
     return (
-      <Meetingstyles>
+      <Meetingstyles onMouseOver={() => this.props.highlightMarker(meeting.id)}>
         {meeting.image && <img src={meeting.image} alt={meeting.title} />}
         <Title>
           <Link

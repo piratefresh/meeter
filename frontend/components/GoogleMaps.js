@@ -1,13 +1,21 @@
 import React, { Component } from "react";
 import MapWithMarkers from "./GoogleMapWrapper";
+import styled from "styled-components";
+
+const StickyWrapper = styled.div`
+  position: relative;
+`;
 
 class GoogleMaps extends Component {
-  state = {
-    lat: null,
-    lng: null,
-    zoom: 12,
-    loading: true
-  };
+  constructor() {
+    super();
+    this.state = {
+      lat: null,
+      lng: null,
+      zoom: 12,
+      loading: true
+    };
+  }
   componentDidMount() {
     navigator.geolocation.getCurrentPosition(position => {
       this.setState({
@@ -22,13 +30,14 @@ class GoogleMaps extends Component {
     console.log(this.props.meetings);
     if (this.state.loading) return <p>Loading ...</p>;
     return (
-      <div>
+      <StickyWrapper>
         <MapWithMarkers
           center={{ lng, lat }}
           zoom={this.state.zoom}
           meetings={this.props.meetings}
+          highlightedMarker={this.props.highlightedMarker}
         />
-      </div>
+      </StickyWrapper>
     );
   }
 }

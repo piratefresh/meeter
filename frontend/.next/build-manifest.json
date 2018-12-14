@@ -11,11 +11,19 @@
       "static/runtime/webpack.js",
       "static/runtime/main.js"
     ],
-    "/category": [
+    "/events": [
+      "static/runtime/webpack.js",
+      "static/runtime/main.js"
+    ],
+    "/createevent": [
       "static/runtime/webpack.js",
       "static/runtime/main.js"
     ],
     "/index": [
+      "static/runtime/webpack.js",
+      "static/runtime/main.js"
+    ],
+    "/signup": [
       "static/runtime/webpack.js",
       "static/runtime/main.js"
     ],

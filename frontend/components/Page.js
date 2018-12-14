@@ -2,10 +2,11 @@ import React, { Component } from "react";
 import styled, { ThemeProvider, injectGlobal } from "styled-components";
 import Header from "../components/Header";
 import Meta from "../components/Meta";
+import Footer from "../components/Footer";
 
 // Reusable css varibles
 const theme = {
-  green: "#62C890",
+  green: "#3a264b",
   black: "#393939",
   grey: "#3A3A3A",
   lightGrey: "#E1E1E1",
@@ -21,9 +22,7 @@ const StyledPage = styled.div`
 `;
 
 const Inner = styled.div`
-  max-width: ${props => props.theme.maxWidth};
   margin: 0 auto;
-  padding: 2rem;
 `;
 
 injectGlobal`
@@ -62,6 +61,7 @@ class Page extends Component {
           <Meta />
           <Header />
           <Inner className={this.props.className}>{this.props.children}</Inner>
+          <Footer />
         </StyledPage>
       </ThemeProvider>
     );

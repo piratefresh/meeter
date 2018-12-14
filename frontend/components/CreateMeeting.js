@@ -10,6 +10,7 @@ import styled from "styled-components";
 import Form from "./styles/Form";
 import Error from "./ErrorMessage";
 import SelectList from "./SelectList";
+import CenterMaxWidth from "./styles/CenterMaxWidth";
 
 const CREATE_ITEM_MUTATION = gql`
   mutation CREATE_ITEM_MUTATION(
@@ -139,158 +140,160 @@ class CreateMeeting extends Component {
   }
   render() {
     return (
-      <Mutation mutation={CREATE_ITEM_MUTATION} variables={this.state}>
-        {(createMeeting, { loading, error }) => (
-          <Form
-            onSubmit={async e => {
-              // stop form from submitting
-              e.preventDefault();
-              // call the mutation
-              const res = await createMeeting();
-              // change them to the single meeting page
-              console.log(res);
-              Router.push({
-                pathname: "/meeting",
-                query: { id: res.data.createMeeting.id }
-              });
-            }}
-          >
-            <Error error={error} />
-            <h2>Create a Meeting</h2>
-            <fieldset disabled={loading} aria-busy={loading}>
-              <label htmlFor="file">
-                Image
-                <input
-                  type="file"
-                  id="file"
-                  name="file"
-                  placeholder="Upload an image"
-                  required
-                  onChange={this.uploadFile}
-                />
-                {this.state.image && (
-                  <img
-                    width="200"
-                    src={this.state.image}
-                    alt="Upload Preview"
+      <CenterMaxWidth>
+        <Mutation mutation={CREATE_ITEM_MUTATION} variables={this.state}>
+          {(createMeeting, { loading, error }) => (
+            <Form
+              onSubmit={async e => {
+                // stop form from submitting
+                e.preventDefault();
+                // call the mutation
+                const res = await createMeeting();
+                // change them to the single meeting page
+                console.log(res);
+                Router.push({
+                  pathname: "/meeting",
+                  query: { id: res.data.createMeeting.id }
+                });
+              }}
+            >
+              <Error error={error} />
+              <h2>Create a Meeting</h2>
+              <fieldset disabled={loading} aria-busy={loading}>
+                <label htmlFor="file">
+                  Image
+                  <input
+                    type="file"
+                    id="file"
+                    name="file"
+                    placeholder="Upload an image"
+                    required
+                    onChange={this.uploadFile}
                   />
-                )}
-              </label>
+                  {this.state.image && (
+                    <img
+                      width="200"
+                      src={this.state.image}
+                      alt="Upload Preview"
+                    />
+                  )}
+                </label>
 
-              <label htmlFor="title">
-                Title
-                <input
-                  type="text"
-                  id="title"
-                  name="title"
-                  placeholder="Title"
-                  required
-                  value={this.state.title}
-                  onChange={this.handleChange}
-                />
-              </label>
-              <label htmlFor="Address">
-                {/* LNG AND LAT GOOGLE API */}
-                {this.state.gmapsLoaded && (
-                  <PlacesAutocomplete
-                    value={this.state.address}
-                    onChange={this.handleChangeAddress}
-                    onSelect={this.handleSelect}
-                    shouldFetchSuggestions={this.state.address.length > 2}
-                  >
-                    {({
-                      getInputProps,
-                      suggestions,
-                      getSuggestionItemProps,
-                      loading
-                    }) => (
-                      <div>
-                        <input
-                          {...getInputProps({
-                            placeholder: "Search Places ...",
-                            className: "location-search-input"
-                          })}
-                        />
-                        <AutocompleteContainer>
-                          {loading && <div>Loading...</div>}
-                          {suggestions.map(suggestion => {
-                            const className = suggestion.active
-                              ? "suggestion-item--active"
-                              : "suggestion-item";
-                            // inline style for demonstration purpose
-                            const style = suggestion.active
-                              ? {
-                                  backgroundColor: "#fafafa",
-                                  cursor: "pointer"
-                                }
-                              : {
-                                  backgroundColor: "#ffffff",
-                                  cursor: "pointer"
-                                };
-                            return (
-                              <div
-                                {...getSuggestionItemProps(suggestion, {
-                                  className,
-                                  style
-                                })}
-                              >
-                                <span>{suggestion.description}</span>
-                              </div>
-                            );
-                          })}
-                        </AutocompleteContainer>
-                      </div>
-                    )}
-                  </PlacesAutocomplete>
-                )}
-              </label>
+                <label htmlFor="title">
+                  Title
+                  <input
+                    type="text"
+                    id="title"
+                    name="title"
+                    placeholder="Title"
+                    required
+                    value={this.state.title}
+                    onChange={this.handleChange}
+                  />
+                </label>
+                <label htmlFor="Address">
+                  {/* LNG AND LAT GOOGLE API */}
+                  {this.state.gmapsLoaded && (
+                    <PlacesAutocomplete
+                      value={this.state.address}
+                      onChange={this.handleChangeAddress}
+                      onSelect={this.handleSelect}
+                      shouldFetchSuggestions={this.state.address.length > 2}
+                    >
+                      {({
+                        getInputProps,
+                        suggestions,
+                        getSuggestionItemProps,
+                        loading
+                      }) => (
+                        <div>
+                          <input
+                            {...getInputProps({
+                              placeholder: "Search Places ...",
+                              className: "location-search-input"
+                            })}
+                          />
+                          <AutocompleteContainer>
+                            {loading && <div>Loading...</div>}
+                            {suggestions.map(suggestion => {
+                              const className = suggestion.active
+                                ? "suggestion-item--active"
+                                : "suggestion-item";
+                              // inline style for demonstration purpose
+                              const style = suggestion.active
+                                ? {
+                                    backgroundColor: "#fafafa",
+                                    cursor: "pointer"
+                                  }
+                                : {
+                                    backgroundColor: "#ffffff",
+                                    cursor: "pointer"
+                                  };
+                              return (
+                                <div
+                                  {...getSuggestionItemProps(suggestion, {
+                                    className,
+                                    style
+                                  })}
+                                >
+                                  <span>{suggestion.description}</span>
+                                </div>
+                              );
+                            })}
+                          </AutocompleteContainer>
+                        </div>
+                      )}
+                    </PlacesAutocomplete>
+                  )}
+                </label>
 
-              <label htmlFor="Category">
-                <SelectList toggleItem={this.toggleSelected} />
-              </label>
+                <label htmlFor="Category">
+                  <SelectList toggleItem={this.toggleSelected} />
+                </label>
 
-              <label htmlFor="startTime">
-                Start Time
-                <input
-                  type="time"
-                  id="startTime"
-                  name="startTime"
-                  placeholder="startTime"
-                  required
-                  value={this.state.startTime}
-                  onChange={this.handleChange}
-                />
-              </label>
+                <label htmlFor="startTime">
+                  Start Time
+                  <input
+                    type="time"
+                    id="startTime"
+                    name="startTime"
+                    placeholder="startTime"
+                    required
+                    value={this.state.startTime}
+                    onChange={this.handleChange}
+                  />
+                </label>
 
-              <label htmlFor="endTime">
-                End Time
-                <input
-                  type="time"
-                  id="endTime"
-                  name="endTime"
-                  placeholder="endTime"
-                  required
-                  value={this.state.endTime}
-                  onChange={this.handleChange}
-                />
-              </label>
+                <label htmlFor="endTime">
+                  End Time
+                  <input
+                    type="time"
+                    id="endTime"
+                    name="endTime"
+                    placeholder="endTime"
+                    required
+                    value={this.state.endTime}
+                    onChange={this.handleChange}
+                  />
+                </label>
 
-              <label htmlFor="description">
-                Description
-                <textarea
-                  id="description"
-                  name="description"
-                  placeholder="Enter A Description"
-                  required
-                  value={this.state.description}
-                  onChange={this.handleChange}
-                />
-              </label>
-              <button type="submit">Submit</button>
-            </fieldset>
-          </Form>
-        )}
-      </Mutation>
+                <label htmlFor="description">
+                  Description
+                  <textarea
+                    id="description"
+                    name="description"
+                    placeholder="Enter A Description"
+                    required
+                    value={this.state.description}
+                    onChange={this.handleChange}
+                  />
+                </label>
+                <button type="submit">Submit</button>
+              </fieldset>
+            </Form>
+          )}
+        </Mutation>
+      </CenterMaxWidth>
     );
   }
 }

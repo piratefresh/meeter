@@ -16,9 +16,9 @@ const Category = styled.div`
     height: 600px;
   }
   p {
-    color: ${props => props.theme.offWhite};
+    color: #fff;
     font-size: 3rem;
-    font-weight: 700;
+    font-weight: 900;
     position: absolute;
     top: 80%;
     left: 50%;
@@ -77,7 +77,7 @@ class Categories extends Component {
                   query: { query: category.value }
                 }}
               >
-                <img src={category.img} alt={category.value} srcset="" />
+                <img src={category.img} alt={category.value} />
               </Link>
               <p>{category.value}</p>
             </Category>

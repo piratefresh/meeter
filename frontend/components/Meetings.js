@@ -38,10 +38,14 @@ const ALL_MEETINGS_QUERY = gql`
 const Center = styled.div`
   text-align: center;
 `;
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-gap: 40px;
+`;
 const MeetingsList = styled.div`
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   grid-gap: 40px;
   max-width: ${props => props.theme.maxWidth};
   margin: 0 auto;
@@ -53,13 +57,18 @@ class Meetings extends Component {
     super(props);
 
     this.state = {
-      hasMore: true
+      hasMore: true,
+      highlightedMarker: null
     };
+    this.highlightMarker = this.highlightMarker.bind(this);
+  }
+  highlightMarker(meetingId) {
+    this.setState({ highlightedMarker: meetingId });
   }
   render() {
     return (
       <Center>
-        <p>Meetings!</p>
+        <h2>Meetings!</h2>
         <Query
           query={ALL_MEETINGS_QUERY}
           variables={{
@@ -74,7 +83,6 @@ class Meetings extends Component {
             // first we decoustruct our payload, Gets the data from our query
             return (
               <Wrapper>
-                <GoogleMap meetings={data.meetings} />
                 <MeetingsList>
                   {data.meetings.map(meeting => {
                     return (
@@ -129,11 +137,19 @@ class Meetings extends Component {
                           </div>
                         }
                       >
-                        <Meeting meeting={meeting} key={meeting.id} />
+                        <Meeting
+                          meeting={meeting}
+                          key={meeting.id}
+                          highlightMarker={this.highlightMarker}
+                        />
                       </InfiniteScroll>
                     );
                   })}
                 </MeetingsList>
+                <GoogleMap
+                  meetings={data.meetings}
+                  highlightedMarker={this.state.highlightedMarker}
+                />
               </Wrapper>
             );
           }}

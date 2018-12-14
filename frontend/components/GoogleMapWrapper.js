@@ -15,7 +15,15 @@ const MapWithMeetings = compose(
       "https://maps.googleapis.com/maps/api/js?key=AIzaSyC-syviZl4VJqqgBlhXxTu4_s3cnXEajDY&libraries=geometry,drawing,places",
     loadingElement: <div style={{ height: `100%` }} />,
     containerElement: (
-      <div style={{ height: "50vh", width: "100%", padding: "50px" }} />
+      <div
+        style={{
+          position: "sticky",
+          top: "0%",
+          height: "100vh",
+          width: "100%",
+          padding: "50px"
+        }}
+      />
     ),
     mapElement: <div style={{ height: "100%" }} />
   }),
@@ -53,17 +61,29 @@ const MapWithMeetings = compose(
             id={meeting.id}
             key={meeting.id}
             position={{ lat: lat, lng: lng }}
-            title="Click to zoom"
+            title={meeting.title}
             onClick={props.onToggleOpen.bind(this, i)}
+            icon={
+              props.highlightedMarker === meeting.id
+                ? {
+                    url: "/static/marker.png"
+                  }
+                : ""
+            }
+            animation={
+              props.highlightedMarker === meeting.id
+                ? google.maps.Animation.BOUNCE
+                : ""
+            }
           >
-            {props.infoWindows[i].isOpen && (
+            {/*             {props.infoWindows[i].isOpen && (
               <InfoWindow onCloseClick={props.onToggleOpen.bind(i)}>
                 <div>
                   <h2>{meeting.title}</h2>
                   <p>{meeting.description}</p>
                 </div>
               </InfoWindow>
-            )}
+            )} */}
           </Marker>
         );
       })}
