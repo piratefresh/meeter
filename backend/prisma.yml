@@ -1,6 +1,6 @@
 endpoint: https://meeter-prod-9f7d342e96.herokuapp.com/meeter-prod/prod
 datamodel: datamodel.graphql
-secret: waew8723masda
+secret: ${env:PRISMA_SECRET}
 # Deploy hook
 hooks:
   post-deploy:
