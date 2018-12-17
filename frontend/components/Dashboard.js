@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Query } from "react-apollo";
 import styled from "styled-components";
+import RequestReset from "./RequestReset";
 import { CURRENT_USER_QUERY } from "./User";
 import Form from "./styles/Form";
 
@@ -91,6 +92,7 @@ class Dashboard extends Component {
                   />
                 </label>
               </Form>
+              <RequestReset />
             </Wrapper>
           );
         }}

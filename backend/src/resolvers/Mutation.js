@@ -92,13 +92,13 @@ const Mutations = {
       "4a41d03e-4e6a-472f-ae96-e1b89b27312c"
     );
     Client.sendEmail({
+      templateId: 9415075,
+      TemplateModel: {
+        action_url: process.env.FRONTEND_URL,
+        token: token
+      },
       From: "tug36870@temple.edu",
-      To: user.email,
-      Subject: "Confirm your account",
-      TextBody: makeANiceEmail(`Click this link to confirm your account 
-      \n\n <a href="${
-        process.env.FRONTEND_URL
-      }/confirmation?confirmToken=${token}">Click Here To Confirm Your Account</a>`)
+      To: user.email
     });
     // Email them that reset token
     /*     const mailRes = await transporter.sendMail({
@@ -166,14 +166,13 @@ const Mutations = {
       "4a41d03e-4e6a-472f-ae96-e1b89b27312c"
     );
     Client.sendEmail({
+      templateId: 9415077,
+      TemplateModel: {
+        action_url: process.env.FRONTEND_URL,
+        token: token
+      },
       From: "tug36870@temple.edu",
-      To: user.email,
-      Subject: "Confirm your account",
-      TextBody: makeANiceEmail(`Your Password Reset Token is here!
-          \n\n
-          <a href="${
-            process.env.FRONTEND_URL
-          }/reset?resetToken=${resetToken}">Click Here to Reset</a>`)
+      To: user.email
     });
     // Email them that reset token
     /*     const mailRes = await transporter.sendMail({
