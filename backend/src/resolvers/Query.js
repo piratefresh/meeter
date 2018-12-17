@@ -22,7 +22,7 @@ const Query = {
   async users(parent, args, ctx, info) {
     // Check if they are logged in.
     if (!ctx.request.userId) {
-      throw new Error("You msut be logged in!");
+      throw new Error("You must be logged in!");
     }
     // 1. Check if user has persmission to query all the users
     hasPermission(ctx.request.user, ["ADMIN", "PERMISSIONUPDATE"]);
