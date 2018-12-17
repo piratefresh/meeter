@@ -161,8 +161,22 @@ const Mutations = {
       where: { email: args.email },
       data: { resetToken, resetTokenExpiry }
     });
+    // Send an email:
+    const mailClient = new postmark.ServerClient(
+      "4a41d03e-4e6a-472f-ae96-e1b89b27312c"
+    );
+    mailClient.sendEmail({
+      From: "tug36870@temple.edu",
+      To: user.email,
+      Subject: "Confirm your account",
+      TextBody: makeANiceEmail(`Your Password Reset Token is here!
+          \n\n
+          <a href="${
+            process.env.FRONTEND_URL
+          }/reset?resetToken=${resetToken}">Click Here to Reset</a>`)
+    });
     // Email them that reset token
-    const mailRes = await transporter.sendMail({
+    /*     const mailRes = await transporter.sendMail({
       from: '"mailtrap" <test@test.com>',
       to: user.email,
       subject: "Your Password Reset Token",
@@ -171,7 +185,7 @@ const Mutations = {
       <a href="${
         process.env.FRONTEND_URL
       }/reset?resetToken=${resetToken}">Click Here to Reset</a>`)
-    });
+    }); */
     // Return the message
     return { message: "Thanks!" };
   },
