@@ -3,6 +3,7 @@ const jwt = require("jsonwebtoken");
 const { randomBytes } = require("crypto");
 const { promisify } = require("util");
 const { transporter, makeANiceEmail } = require("../mail");
+const postmark = require("postmark");
 const { hasPermission } = require("../utils");
 
 const Mutations = {
@@ -86,8 +87,21 @@ const Mutations = {
       where: { email: args.email },
       data: { confirmToken: token }
     });
+    // Send an email:
+    const mailClient = new postmark.ServerClient(
+      "4a41d03e-4e6a-472f-ae96-e1b89b27312c"
+    );
+    mailClient.sendEmail({
+      From: "tug36870@temple.edu",
+      To: user.email,
+      Subject: "Confirm your account",
+      TextBody: makeANiceEmail(`Click this link to confirm your account 
+      \n\n <a href="${
+        process.env.FRONTEND_URL
+      }/confirmation?confirmToken=${token}">Click Here To Confirm Your Account</a>`)
+    });
     // Email them that reset token
-    const mailRes = await transporter.sendMail({
+    /*     const mailRes = await transporter.sendMail({
       from: "magnussithnilsen@gmail.com",
       to: user.email,
       subject: "Confirm your account",
@@ -95,7 +109,7 @@ const Mutations = {
             \n\n <a href="${
               process.env.FRONTEND_URL
             }/confirmation?confirmToken=${token}">Click Here To Confirm Your Account</a>`)
-    });
+    }); */
     // We set JWT as cookie on response
     ctx.response.cookie("token", token, {
       httpOnly: true,
