@@ -24,8 +24,8 @@ const UPDATE_ITEM_MUTATION = gql`
     $title: String
     $description: String
     $date: String
-    $startTime: Int
-    $endTime: Int
+    $startTime: String
+    $endTime: String
   ) {
     updateMeeting(
       id: $id

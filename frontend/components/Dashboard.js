@@ -91,6 +91,7 @@ class Dashboard extends Component {
                     onChange={this.handleChange}
                   />
                 </label>
+                <button type="submit">Submit</button>
               </Form>
               <RequestReset />
             </Wrapper>
