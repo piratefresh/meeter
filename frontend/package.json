@@ -4,8 +4,9 @@
   "description": "Meeter! a social event finder",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon -e js,graphql -x node src/index.js",
-    "dev": "nodemon -e js,graphql -x node --inspect src/index.js",
+    "dev": "next -p 7777",
+    "build": "next build",
+    "start": "next start -p $PORT",
     "test": "NODE_ENV=test jest --watch",
     "heroku-postbuild": "next build"
   },
