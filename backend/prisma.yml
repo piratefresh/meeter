@@ -1,5 +1,6 @@
-endpoint: https://us1.prisma.sh/magnus-nilsen/meeterbackend/dev
+endpoint: https://meeter-production-638bfa5d67.herokuapp.com/prod
 datamodel: datamodel.graphql
+secret: ${env:PRISMA_SECRET}
 # Deploy hook
 hooks:
   post-deploy:

@@ -19,6 +19,7 @@ const CREATE_ITEM_MUTATION = gql`
     $category: String!
     $image: String
     $largeImage: String
+    $date: String!
     $startTime: String!
     $endTime: String!
     $lat: Float!
@@ -30,6 +31,7 @@ const CREATE_ITEM_MUTATION = gql`
       description: $description
       category: $category
       image: $image
+      date: $date
       largeImage: $largeImage
       startTime: $startTime
       endTime: $endTime
@@ -55,11 +57,12 @@ class CreateMeeting extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      title: "dance party",
-      description: "a cool dance party",
-      image: "party.jpg",
+      title: "",
+      description: "",
+      image: "",
       largeImage: "",
       category: "",
+      date: "",
       startTime: "",
       endTime: "",
       address: "",
@@ -144,13 +147,13 @@ class CreateMeeting extends Component {
         <Mutation mutation={CREATE_ITEM_MUTATION} variables={this.state}>
           {(createMeeting, { loading, error }) => (
             <Form
+              data-test="form"
               onSubmit={async e => {
                 // stop form from submitting
                 e.preventDefault();
                 // call the mutation
                 const res = await createMeeting();
                 // change them to the single meeting page
-                console.log(res);
                 Router.push({
                   pathname: "/meeting",
                   query: { id: res.data.createMeeting.id }
@@ -249,6 +252,19 @@ class CreateMeeting extends Component {
 
                 <label htmlFor="Category">
                   <SelectList toggleItem={this.toggleSelected} />
+                </label>
+
+                <label htmlFor="date">
+                  Event Date
+                  <input
+                    type="date"
+                    id="date"
+                    name="date"
+                    placeholder="date"
+                    required
+                    value={this.state.date}
+                    onChange={this.handleChange}
+                  />
                 </label>
 
                 <label htmlFor="startTime">

@@ -117,7 +117,9 @@ function (_Component) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
           onClick: function onClick() {
             if (confirm("Are you sure you want to delete this meeting?")) {
-              deleteMeeting();
+              deleteMeeting().catch(function (err) {
+                alert(err.message);
+              });
             }
           },
           __source: {
@@ -746,17 +748,13 @@ function (_Component) {
                 },
                 updateQuery: function updateQuery(previousResult, _ref2) {
                   var fetchMoreResult = _ref2.fetchMoreResult;
-                  {
-                    console.log(_this2.state.hasMore);
-                  }
+                  {}
 
                   _this2.setState({
                     hasMore: data.meetingsConnection.aggregate.count > data.meetings.lengthe
                   });
 
-                  {
-                    console.log(_this2.state.hasMore);
-                  }
+                  {}
 
                   if (!fetchMoreResult) {
                     hasMore = data.meetingsConnection.aggregate.count > data.meetings.length;
@@ -778,7 +776,7 @@ function (_Component) {
               key: 0,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 135
+                lineNumber: 133
               },
               __self: this
             }, "Loading ..."),
@@ -793,7 +791,7 @@ function (_Component) {
             highlightMarker: _this2.highlightMarker,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 140
+              lineNumber: 138
             },
             __self: this
           }));
@@ -802,7 +800,7 @@ function (_Component) {
           highlightedMarker: _this2.state.highlightedMarker,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 149
+            lineNumber: 147
           },
           __self: this
         }));
@@ -43851,7 +43849,7 @@ var Events = function Events(props) {
 
 /***/ }),
 
-/***/ 5:
+/***/ 6:
 /*!*******************************!*\
   !*** multi ./pages/events.js ***!
   \*******************************/
@@ -43876,5 +43874,5 @@ module.exports = dll_18682c416555df0bf0b9;
 
 /***/ })
 
-},[[5,"static/runtime/webpack.js"]]]));;
+},[[6,"static/runtime/webpack.js"]]]));;
 //# sourceMappingURL=events.js.map

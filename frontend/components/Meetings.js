@@ -99,7 +99,6 @@ class Meetings extends Component {
                               { fetchMoreResult }
                             ) => {
                               {
-                                console.log(this.state.hasMore);
                               }
                               this.setState({
                                 hasMore:
@@ -107,7 +106,6 @@ class Meetings extends Component {
                                   data.meetings.lengthe
                               });
                               {
-                                console.log(this.state.hasMore);
                               }
                               if (!fetchMoreResult) {
                                 hasMore =

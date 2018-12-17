@@ -36,7 +36,9 @@ class DeleteMeeting extends Component {
           <button
             onClick={() => {
               if (confirm("Are you sure you want to delete this meeting?")) {
-                deleteMeeting();
+                deleteMeeting().catch(err => {
+                  alert(err.message);
+                });
               }
             }}
           >

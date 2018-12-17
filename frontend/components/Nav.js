@@ -10,6 +10,7 @@ const Nav = () => (
         <Link href="/">
           <a>Home</a>
         </Link>
+        {console.log(me)}
         {me && (
           <>
             {/* React fragment // ghost element */}
@@ -22,7 +23,7 @@ const Nav = () => (
             <Link href="/createevent">
               <a>Messaging</a>
             </Link>
-            <Link href="/createevent">
+            <Link href="/account">
               <a>Account</a>
             </Link>
             <Signout />

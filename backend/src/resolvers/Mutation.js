@@ -3,6 +3,7 @@ const jwt = require("jsonwebtoken");
 const { randomBytes } = require("crypto");
 const { promisify } = require("util");
 const { transporter, makeANiceEmail } = require("../mail");
+const { hasPermission } = require("../utils");
 
 const Mutations = {
   async createMeeting(parent, args, ctx, info) {
@@ -45,8 +46,19 @@ const Mutations = {
   async deleteMeeting(parent, args, ctx, info) {
     const where = { id: args.id };
     // Find meeting
-    const meeting = await ctx.db.query.meeting({ where }, `{ id title}`);
+    const meeting = await ctx.db.query.meeting(
+      { where },
+      `{ id title user {id}}`
+    );
     // check if they made meeting or has permission
+    const ownsItem = item.user.id === ctx.request.userId;
+    const hasPermissions = ctx.request.user.permissions.some(permission =>
+      ["ADMIN", "ITEMDELETE"].includes(permission)
+    );
+
+    if (!ownsItem && !hasPermissions) {
+      throw new Error("You arent allowed to delete this meeting!");
+    }
     // delete it
     return ctx.db.mutation.deleteMeeting({ where }, info);
   },
@@ -229,28 +241,36 @@ const Mutations = {
     // Return the message
     return updatedUser;
   },
-  async createGame(parent, args, ctx, info) {
-    const user = await ctx.db.query.user({ where: { id: args.id } });
-    if (!user) {
-      throw new Error(`No such user found}`);
+  async updatePermissions(parent, args, ctx, info) {
+    // Check if user logged in
+    if (!ctx.request.userId) {
+      throw new Error("You must be logged in");
     }
-    console.log(user);
-    const game = await ctx.db.mutation.createGame(
+    // Query current user
+    const currentUser = await ctx.db.query.user(
       {
-        data: {
-          user: {
-            connect: {
-              id: user.id
-            }
-          },
-          title: args.title,
-          description: args.description
+        where: {
+          id: ctx.request.userId
         }
       },
       info
     );
-    console.log(game);
-    return game;
+    // Check if they have permissions to do this
+    hasPermission(currentUser, ["ADMIN", "PERMISSIONUPDATE"]);
+    // update permission
+    return ctx.db.mutation.updateUser(
+      {
+        data: {
+          permissions: {
+            set: args.permissions
+          }
+        },
+        where: {
+          id: args.userId
+        }
+      },
+      info
+    );
   }
 };
 

@@ -2,8 +2,7 @@ import React, { Component } from "react";
 import gql from "graphql-tag";
 import { Query } from "react-apollo";
 import styled from "styled-components";
-import Error from "./ErrorMessage";
-import Head from "next/head";
+import GoogleMap from "./GoogleMaps";
 import Meeting from "./Meeting";
 
 const CategoryStyles = styled.div`
@@ -35,7 +34,22 @@ const CATEGORY_EVENTS_QUERY = gql`
   }
 `;
 
+const Wrapper = styled.div`
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-gap: 40px;
+`;
 class Category extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      highlightedMarker: null
+    };
+    this.highlightMarker = this.highlightMarker.bind(this);
+  }
+  highlightMarker(meetingId) {
+    this.setState({ highlightedMarker: meetingId });
+  }
   render() {
     return (
       <Query
@@ -49,11 +63,23 @@ class Category extends Component {
           if (error) return <p>{error.message}</p>;
           // first we decoustruct our payload, Gets the data from our query
           return (
-            <CategoryStyles>
-              {data.meetings.map(meeting => {
-                return <Meeting meeting={meeting} key={meeting.id} />;
-              })}
-            </CategoryStyles>
+            <Wrapper>
+              <CategoryStyles>
+                {data.meetings.map(meeting => {
+                  return (
+                    <Meeting
+                      meeting={meeting}
+                      key={meeting.id}
+                      highlightMarker={this.highlightMarker}
+                    />
+                  );
+                })}
+              </CategoryStyles>
+              <GoogleMap
+                meetings={data.meetings}
+                highlightedMarker={this.state.highlightedMarker}
+              />
+            </Wrapper>
           );
         }}
       </Query>

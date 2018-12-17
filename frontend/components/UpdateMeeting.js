@@ -11,6 +11,7 @@ const SINGLE_MEETING_QUERY = gql`
     meeting(where: { id: $id }) {
       id
       title
+      date
       startTime
       endTime
       description
@@ -22,6 +23,7 @@ const UPDATE_ITEM_MUTATION = gql`
     $id: ID!
     $title: String
     $description: String
+    $date: String
     $startTime: Int
     $endTime: Int
   ) {
@@ -29,6 +31,7 @@ const UPDATE_ITEM_MUTATION = gql`
       id: $id
       title: $title
       description: $description
+      date: $date
       startTime: $startTime
       endTime: $endTime
     ) {
@@ -90,10 +93,23 @@ class UpdateMeeting extends Component {
                         />
                       </label>
 
+                      <label htmlFor="date">
+                        Event Date
+                        <input
+                          type="date"
+                          id="date"
+                          name="date"
+                          placeholder="date"
+                          required
+                          defaultValue={data.meeting.date}
+                          onChange={this.handleChange}
+                        />
+                      </label>
+
                       <label htmlFor="startTime">
                         Start Time
                         <input
-                          type="number"
+                          type="time"
                           id="startTime"
                           name="startTime"
                           placeholder="startTime"
@@ -106,7 +122,7 @@ class UpdateMeeting extends Component {
                       <label htmlFor="endTime">
                         End Time
                         <input
-                          type="number"
+                          type="time"
                           id="endTime"
                           name="endTime"
                           placeholder="endTime"

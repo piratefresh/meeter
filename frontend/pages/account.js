@@ -1,13 +1,13 @@
-import Link from "next/link";
-import CreateMeeting from "../components/CreateMeeting";
+import Dashboard from "../components/Dashboard";
 import PleaseSignIn from "../components/PleaseSignin";
 
-const CreateEvent = props => (
+const DashboardPage = props => (
   <div>
     <PleaseSignIn>
-      <CreateMeeting />
+      <Dashboard />
+      {console.log(props)}
     </PleaseSignIn>
   </div>
 );
 
-export default CreateEvent;
+export default DashboardPage;

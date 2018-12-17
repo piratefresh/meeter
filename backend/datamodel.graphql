@@ -31,6 +31,7 @@ type Meeting {
   category: String!
   image: String
   largeImage: String
+  date: String!
   startTime: String!
   endTime: String!
   user: User!

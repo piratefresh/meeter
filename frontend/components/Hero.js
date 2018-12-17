@@ -1,5 +1,9 @@
 import React, { Component } from "react";
 import styled from "styled-components";
+import gql from "graphql-tag";
+import { Query } from "react-apollo";
+import Link from "next/link";
+import Router from "next/router";
 
 const HeroWrapper = styled.div`
   position: relative;
@@ -19,13 +23,24 @@ const SearchBar = styled.div`
   transform: translate(-50%, -50%);
   width: 60vw;
   height: 140px;
-  background: #3a264b;
+  background: hsl(272.4, 32.47%, 30.2%);
+  button,
+  input[type="submit"] {
+    width: auto;
+    background: hsl(276, 25%, 42%);
+    color: white;
+    border: 0;
+    font-size: 2rem;
+    font-weight: 600;
+    padding: 0.5rem 1.2rem;
+  }
 `;
-const SearchOptions = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 1% 10%;
+const SearchOptions = styled.div``;
+const Form = styled.div`
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  width: 100%;
+  padding: 5% 10%;
   color: #fff;
   font-weight: 700;
 `;
@@ -40,6 +55,7 @@ const SearchInput = styled.input`
 
 class Hero extends Component {
   state = {
+    text: "",
     query: ""
   };
   handleChange = e => {
@@ -58,20 +74,25 @@ class Hero extends Component {
         />
         <SearchBar>
           <span styles={{ display: "block" }}>
-            <SearchOptions>
-              Looking for:
-              <label htmlFor="query">
-                <SearchInput
-                  type="text"
-                  id="query"
-                  name="query"
-                  placeholder="Keyword search"
-                  required
-                  value={this.state.query}
-                  onChange={this.handleChange}
-                />
-              </label>
-            </SearchOptions>
+            <Form>
+              <SearchInput
+                type="text"
+                id="text"
+                name="text"
+                placeholder="Search for events"
+                required
+                value={this.state.text}
+                onChange={this.handleChange}
+              />
+              <Link
+                href={{
+                  pathname: "search",
+                  query: { query: this.state.text }
+                }}
+              >
+                <button type="button">Search</button>
+              </Link>
+            </Form>
           </span>
         </SearchBar>
       </HeroWrapper>

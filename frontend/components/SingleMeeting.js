@@ -30,7 +30,13 @@ const SINGLE_MEETING_QUERY = gql`
       id
       title
       description
+      date
       largeImage
+      startTime
+      endTime
+      user {
+        name
+      }
     }
   }
 `;
@@ -57,6 +63,10 @@ class SingleMeeting extends Component {
               <img src={meeting.largeImage} alt={meeting.title} />
               <div className="details">
                 <h2>Viewing {meeting.title}</h2>
+                <p>
+                  {meeting.startTime} - {meeting.endTime} at {meeting.date}
+                </p>
+                <p>Hosted by {meeting.user.name}</p>
                 <p>{meeting.description}</p>
               </div>
             </SingleMeetingStyles>

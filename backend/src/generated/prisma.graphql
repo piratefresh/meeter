@@ -1,5 +1,5 @@
 # source: https://us1.prisma.sh/magnus-nilsen/meeterbackend/dev
-# timestamp: Fri Dec 07 2018 05:53:19 GMT-0500 (Eastern Standard Time)
+# timestamp: Sun Dec 16 2018 19:15:59 GMT-0500 (Eastern Standard Time)
 
 type AggregateItem {
   count: Int!
@@ -219,6 +219,7 @@ type Meeting implements Node {
   category: String!
   image: String
   largeImage: String
+  date: String!
   startTime: String!
   endTime: String!
   user: User!
@@ -245,6 +246,7 @@ input MeetingCreateInput {
   category: String!
   image: String
   largeImage: String
+  date: String!
   startTime: String!
   endTime: String!
   address: String!
@@ -264,6 +266,7 @@ input MeetingCreateWithoutUserInput {
   category: String!
   image: String
   largeImage: String
+  date: String!
   startTime: String!
   endTime: String!
   address: String!
@@ -293,6 +296,8 @@ enum MeetingOrderByInput {
   image_DESC
   largeImage_ASC
   largeImage_DESC
+  date_ASC
+  date_DESC
   startTime_ASC
   startTime_DESC
   endTime_ASC
@@ -316,6 +321,7 @@ type MeetingPreviousValues {
   category: String!
   image: String
   largeImage: String
+  date: String!
   startTime: String!
   endTime: String!
   address: String!
@@ -574,6 +580,46 @@ input MeetingScalarWhereInput {
 
   """All values not ending with the given string."""
   largeImage_not_ends_with: String
+  date: String
+
+  """All values that are not equal to given value."""
+  date_not: String
+
+  """All values that are contained in given list."""
+  date_in: [String!]
+
+  """All values that are not contained in given list."""
+  date_not_in: [String!]
+
+  """All values less than the given value."""
+  date_lt: String
+
+  """All values less than or equal the given value."""
+  date_lte: String
+
+  """All values greater than the given value."""
+  date_gt: String
+
+  """All values greater than or equal the given value."""
+  date_gte: String
+
+  """All values containing the given string."""
+  date_contains: String
+
+  """All values not containing the given string."""
+  date_not_contains: String
+
+  """All values starting with the given string."""
+  date_starts_with: String
+
+  """All values not starting with the given string."""
+  date_not_starts_with: String
+
+  """All values ending with the given string."""
+  date_ends_with: String
+
+  """All values not ending with the given string."""
+  date_not_ends_with: String
   startTime: String
 
   """All values that are not equal to given value."""
@@ -829,6 +875,7 @@ input MeetingUpdateInput {
   category: String
   image: String
   largeImage: String
+  date: String
   startTime: String
   endTime: String
   address: String
@@ -843,6 +890,7 @@ input MeetingUpdateManyDataInput {
   category: String
   image: String
   largeImage: String
+  date: String
   startTime: String
   endTime: String
   address: String
@@ -856,6 +904,7 @@ input MeetingUpdateManyMutationInput {
   category: String
   image: String
   largeImage: String
+  date: String
   startTime: String
   endTime: String
   address: String
@@ -885,6 +934,7 @@ input MeetingUpdateWithoutUserDataInput {
   category: String
   image: String
   largeImage: String
+  date: String
   startTime: String
   endTime: String
   address: String
@@ -1152,6 +1202,46 @@ input MeetingWhereInput {
 
   """All values not ending with the given string."""
   largeImage_not_ends_with: String
+  date: String
+
+  """All values that are not equal to given value."""
+  date_not: String
+
+  """All values that are contained in given list."""
+  date_in: [String!]
+
+  """All values that are not contained in given list."""
+  date_not_in: [String!]
+
+  """All values less than the given value."""
+  date_lt: String
+
+  """All values less than or equal the given value."""
+  date_lte: String
+
+  """All values greater than the given value."""
+  date_gt: String
+
+  """All values greater than or equal the given value."""
+  date_gte: String
+
+  """All values containing the given string."""
+  date_contains: String
+
+  """All values not containing the given string."""
+  date_not_contains: String
+
+  """All values starting with the given string."""
+  date_starts_with: String
+
+  """All values not starting with the given string."""
+  date_not_starts_with: String
+
+  """All values ending with the given string."""
+  date_ends_with: String
+
+  """All values not ending with the given string."""
+  date_not_ends_with: String
   startTime: String
 
   """All values that are not equal to given value."""
