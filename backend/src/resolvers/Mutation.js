@@ -88,10 +88,10 @@ const Mutations = {
       data: { confirmToken: token }
     });
     // Send an email:
-    const mailClient = new postmark.ServerClient(
+    const Client = new postmark.ServerClient(
       "4a41d03e-4e6a-472f-ae96-e1b89b27312c"
     );
-    mailClient.sendEmail({
+    Client.sendEmail({
       From: "tug36870@temple.edu",
       To: user.email,
       Subject: "Confirm your account",
@@ -162,10 +162,10 @@ const Mutations = {
       data: { resetToken, resetTokenExpiry }
     });
     // Send an email:
-    const mailClient = new postmark.ServerClient(
+    const Client = new postmark.ServerClient(
       "4a41d03e-4e6a-472f-ae96-e1b89b27312c"
     );
-    mailClient.sendEmail({
+    Client.sendEmail({
       From: "tug36870@temple.edu",
       To: user.email,
       Subject: "Confirm your account",
